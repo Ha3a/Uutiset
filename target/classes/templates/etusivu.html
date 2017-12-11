@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <title>Huippu uutiset</title>
+        <style>
+            body {margin:10;}
+
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 18px;
+            }
+
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            .topnav a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .topnav .active {
+                color:            #F8F8F8;
+                background-color: #4f81bd;
+            }
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+
+        </style>
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            $(function () {
+                $('a').each(function () {
+                    if ($(this).prop('href') == window.location.href) {
+                        $(this).addClass('active');
+                        $(this).parents('li').addClass('active');
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+
+
+
+        <div class="topnav">
+
+            <a href="/etusivu">Etusivu</a>
+            <a href="/maailma">Maailma</a>
+            <a href="/urheilu">Urheilu</a>
+            <a href="/kotimaa">Kotimaa</a>
+            <a href="/sää">Sää</a>
+            <a href="/politiikka">Politiikka</a>
+            <a href="/luetuimmat">Luetiummat</a>
+            <a href="/uusimmat">Uusimmat</a>
+
+        </div>
+
+
+        <ul>
+            <li th:each="uutinen : ${uutiset}">
+
+                <div class="floating-box">
+                    <a th:href="@{/etusivu/{id}(id=${uutinen.id})}" th:text="${uutinen.otsikko}">title</a>                                
+                    <p th:utext="${uutinen.ingressi}">content</p>
+                    <img th:src="@{/gifs/{id}/content(id=${uutinen.id - 1})}"/>
+                </div>
+
+
+            </li>
+        </ul>
+
+
+
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <title>Huippu uutiset</title>
+        <style>
+
+
+            body {margin:10;}
+
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 18px;
+            }
+
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            .topnav a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+
+
+        </style>
+    </head>
+    <body>
+
+        <div class="topnav">
+
+            <a href="/etusivu">Etusivu</a>
+            <a href="/maailma">Maailma</a>
+            <a href="/urheilu">Urheilu</a>
+            <a href="/kotimaa">Kotimaa</a>
+            <a href="/sää">Sää</a>
+            <a href="/politiikka">Politiikka</a>
+            <a href="/luetuimmat">Luetiummat</a>
+            <a href="/uusimmat">Uusimmat</a>
+
+        </div>
+
+
+        <div class="uutinen">
+            <h1><span th:text="${uutinen.otsikko}">Otsikko</span></h1>
+
+
+            <pre th:text="${uutinen.kirjoittaja}">kirjoittaja</pre>
+            <img th:src="@{/gifs/{id}/content(id=${uutinen.id - 1})}"/>
+            <p th:utext="${uutinen.sisalto}">content</p>
+            <p th:utext="${uutinen.pvm}">content</p>
+            <p th:utext="${uutinen.visits}">content</p>
+
+        </div>
+
+        <div style="width:40%; float:left;">
+            <h3>Uusimmat</h3>
+            <ul>
+                <li th:each="uutinen : ${uusimmat}">
+
+                    <div>
+                        <a th:href="@{/etusivu/{id}(id=${uutinen.id})}" th:text="${uutinen.otsikko}">title</a>                                
+                        <a th:href="@{/etusivu/{id}(id=${uutinen.id})}" th:text="${uutinen.pvm}">pvm</a>                    
+                    </div>
+
+
+                </li>
+            </ul>
+        </div>
+
+
+        <div style="width:40%; float:left;">
+            <h3>Luetuimmat</h3>
+            <ul>
+                <li th:each="uutinen : ${luetuimmat}">
+
+                    <div>
+                        <a th:href="@{/etusivu/{id}(id=${uutinen.id})}" th:text="${uutinen.otsikko}">title</a>                                
+                        <a th:href="@{/etusivu/{id}(id=${uutinen.id})}" th:text="${uutinen.pvm}">pvm</a>                    
+                    </div>
+
+
+                </li>
+            </ul>
+        </div>
+
+
+    </body>
+</html>

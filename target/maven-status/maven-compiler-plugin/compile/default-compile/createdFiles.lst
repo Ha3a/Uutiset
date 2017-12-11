@@ -1,0 +1,7 @@
+wad\controller\DefaultController.class
+wad\controller\UutisController.class
+wad\domain\Gif.class
+wad\domain\Uutinen.class
+wad\repository\GifRepository.class
+wad\UutisetMain.class
+wad\repository\UutisRepository.class

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hallinta</title>
+    </head>
+    <body>
+        <div>Lisää uutinen</div>
+
+
+        <form th:action="@{/hallinta}" method="POST" enctype="multipart/form-data" id="new">
+            <div th:if="${otsikko == null}">
+                <p>Otsikko: <input name="otsikko"></input></p>
+                <p>Kirjoittaja: <input name="kirjoittaja"></input></p>
+                <p>Sisältö: <textarea name="sisalto"></textarea></p>
+                <p>Ingressi: <textarea name="ingressi"></textarea></p>
+
+                <p><input type="checkbox" name="aihe" value="maailma"/>Maailma
+                    <input type="checkbox" name="aihe" value="urheilu"/>Urheilu
+                    <input type="checkbox" name="aihe" value="kotimaa"/>Kotimaa
+                    <input type="checkbox" name="aihe" value="sää"/>Sää
+                    <input type="checkbox" name="aihe" value="politiikka"/>Politiikka</p>
+
+                <input type="file" name="file" id="file"/>
+                <input type="submit" value="Add"></input>
+            </div>
+
+
+
+
+        </form>
+
+        <div>Muokkaa uutista</div>
+
+        <ul>
+            <li th:each="uutinen : ${uutiset}">
+
+                <a th:href="@{/muokkaa/{id}(id=${uutinen.id})}" th:text="${uutinen.otsikko}">title</a>                               
+
+            </li>
+        </ul>
+
+
+
+
+
+    </body>
+</html>
