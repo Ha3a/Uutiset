@@ -25,7 +25,7 @@ import wad.domain.Uutinen;
 import wad.repository.GifRepository;
 
 import wad.repository.UutisRepository;
-
+//Luokka työstää POST ja GET ominaisuudet
 @Controller
 public class UutisController {
 
@@ -35,6 +35,8 @@ public class UutisController {
     @Autowired
     private GifRepository gifRepoitory;
 
+    
+    //Haetaan etusivulle 5 uusinta artikkelia
     @GetMapping("/etusivu")
     public String list(Model model) {
 
@@ -44,6 +46,8 @@ public class UutisController {
         return "etusivu";
     }
 
+    
+    //Metodi kuville
     @GetMapping(path = "/gifs/{id}/content", produces = "image/gif")
     @ResponseBody
     public byte[] get(@PathVariable Long id) {
@@ -51,6 +55,8 @@ public class UutisController {
         return gifRepoitory.getOne(id).getContent();
     }
 
+    
+    //Haetaan yksittäinen artikkeli ja lisätään sille kävijä
     @GetMapping("/etusivu/{uutisId}")
     public String uutinen(@PathVariable Long uutisId, Model model) {
         model.addAttribute("uutinen", uutisrepository.getOne(uutisId));
@@ -70,6 +76,8 @@ public class UutisController {
         return "uutinen";
     }
 
+    
+    //Haetaan tietyn kategorian uutiset
     @GetMapping("/{kategoria}")
     public String kategoria(@PathVariable String kategoria, Model model) {
 
@@ -93,6 +101,8 @@ public class UutisController {
         return "etusivu";
     }
 
+    
+    //Haetaan hallinta paneeli ja uutiset listaksi
     @GetMapping("/hallinta")
     public String hallinta(Model model) {
 
@@ -101,6 +111,8 @@ public class UutisController {
         return "hallinta";
     }
 
+    
+    //Haetaan muokattavan uutisen tiedot muokkaussivulle
     @GetMapping("/muokkaa/{uutisId}")
     public String muokkaaUutista(@PathVariable Long uutisId, Model model) {
 
@@ -109,6 +121,7 @@ public class UutisController {
         return "muokkaus";
     }
 
+    //Tallennetaan tehdyt muutokset
     @PostMapping("/muokkaa/{uutisId}")
     public String muokkaaUutinen(@PathVariable Long uutisId, @RequestParam String otsikko, @RequestParam String kirjoittaja,
             @RequestParam String sisalto, @RequestParam String ingressi, @RequestParam("aihe") List<String> aiheet, @RequestParam("file") MultipartFile file) throws IOException {
@@ -136,6 +149,8 @@ public class UutisController {
         return "redirect:/etusivu";
     }
 
+    
+    //Tallennetaan uutinen ja sen tiedot sitten redirect etusivulle, jos kuva ei ole gif niin takaisin hallintaan
     @PostMapping("/hallinta")
     public String addUutinen(@RequestParam String otsikko, @RequestParam String kirjoittaja,
             @RequestParam String sisalto, @RequestParam String ingressi, @RequestParam("aihe") List<String> aiheet, @RequestParam("file") MultipartFile file) throws IOException {
